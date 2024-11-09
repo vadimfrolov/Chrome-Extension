@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   var button = document.getElementById('myButton');
+  var loader = document.getElementById('loader');
+
   button.addEventListener('click', async function() {
+    // Show the loader
+    loader.style.display = 'block';
+
     try {
       const {available, defaultTemperature, defaultTopK, maxTopK } = await ai.languageModel.capabilities();
 
@@ -22,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred while fetching data.');
+    } finally {
+      // Hide the loader
+      loader.style.display = 'none';
     }
   });
 });
