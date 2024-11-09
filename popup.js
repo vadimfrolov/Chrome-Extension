@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const inspQuo = await session.prompt("give me an inspirational quote");
 
         // Display the results in the divs
-        document.getElementById('mindEx').innerText = mindEx;
-        document.getElementById('healMeal').innerText = healMeal;
-        document.getElementById('inspQuo').innerText = inspQuo;
+        document.getElementById('mindEx').querySelector('p').innerText = mindEx;
+        document.getElementById('healMeal').querySelector('p').innerText = healMeal;
+        document.getElementById('inspQuo').querySelector('p').innerText = inspQuo;
       } else {
         alert('AI model is not available.');
       }
