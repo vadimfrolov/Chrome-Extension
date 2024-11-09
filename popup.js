@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   var button = document.getElementById('myButton');
   var loader = document.getElementById('loader');
+  var cards = document.querySelectorAll('.card');
 
   button.addEventListener('click', async function() {
-    // Show the loader
+    // Show the loader and hide the button and cards
     loader.style.display = 'block';
+    button.style.display = 'none';
+    cards.forEach(card => card.style.display = 'none');
 
     try {
       const {available, defaultTemperature, defaultTopK, maxTopK } = await ai.languageModel.capabilities();
@@ -21,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('mindEx').querySelector('p').innerText = mindEx;
         document.getElementById('healMeal').querySelector('p').innerText = healMeal;
         document.getElementById('inspQuo').querySelector('p').innerText = inspQuo;
+
+        // Show the cards
+        cards.forEach(card => card.style.display = 'block');
       } else {
         alert('AI model is not available.');
       }
