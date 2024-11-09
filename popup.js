@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const session = await ai.languageModel.create();
 
         // Prompt the model and wait for the whole result to come back.
-        const mindEx = await session.prompt("give me a simple exercise to relax");
-        const healMeal = await session.prompt("give me an idea for a healthy meal");
-        const inspQuo = await session.prompt("give me an inspirational quote");
+        const mindEx = await session.prompt("give me a simple exercise to relax in less than 100 words");
+        const healMeal = await session.prompt("give me an idea for healthy meal in less than 100 words");
+        const inspQuo = await session.prompt("give me a new inspirational quote");
 
         // Display the results in the divs
         document.getElementById('mindEx').querySelector('p').innerText = mindEx;
