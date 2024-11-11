@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Prompt the model and wait for the whole result to come back.
         const mindEx =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure as json:
+          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure:
 
 {
   "title": "string",
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 there should be from 3 to 5 steps in array`);
         const healMeal =
-          await session.prompt(`give me a meal receipt in less than 100 words with this result structure as json:
+          await session.prompt(`give me a meal receipt in less than 100 words with this result structure:
 
 {
   "title": "string",
