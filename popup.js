@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const mindEx =
           await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure:
 
-{
-  "title": "string",
-  "durationMinutes": "number",
-  "steps": "string[]"
-}`);
+
+  Title
+  Duration x minutes
+  Steps
+`);
         const healMeal =
           await session.prompt(`give me a meal receipt in less than 100 words with this result structure:
 
