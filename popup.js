@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   var button = document.getElementById('myButton');
   var loader = document.getElementById('loader');
+  var mainTitle = document.getElementById('mainTitle');
   var cards = document.querySelectorAll('.card');
 
   button.addEventListener('click', async function() {
@@ -8,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
     loader.style.display = 'block';
     button.style.display = 'none';
     cards.forEach(card => card.style.display = 'none');
+
+    // Change the title text while loading
+    mainTitle.innerText = "Our best employee is already looking for information";
 
     try {
       const {available, defaultTemperature, defaultTopK, maxTopK } = await ai.languageModel.capabilities();
@@ -38,8 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error:', error);
       alert('An error occurred while fetching data.');
     } finally {
-      // Hide the loader
+      // Hide the loader and the title
       loader.style.display = 'none';
+      mainTitle.style.display = 'none';
     }
   });
 });
