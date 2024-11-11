@@ -31,9 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
   "title": "string",
   "durationMinutes": "number",
   "steps": "string[]"
-}
-
-there should be from 3 to 5 steps in array`);
+}`);
         const healMeal =
           await session.prompt(`give me a meal receipt in less than 100 words with this result structure:
 
@@ -42,9 +40,7 @@ there should be from 3 to 5 steps in array`);
   "durationMinutes": "number",
   "whyThisMealIsGood": "string",
   "steps": "string[]"
-}
-
-there should be from 3 to 5 steps in array`);
+}`);
         const inspQuo = await session.prompt(
           "give me a new inspirational quote"
         );
