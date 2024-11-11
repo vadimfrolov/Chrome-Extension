@@ -10,6 +10,12 @@
         width: 500px;
         margin: 0 auto;
         background-color: #e1eba1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
       }
 
       h1 {
@@ -22,19 +28,35 @@
         margin: 20px auto;
       }
 
-      .card {
-        background-color: #fff;
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr 0.5fr;
+        gap: 10px;
+        width: 70%;
+        height: 70vh;
+      }
+
+      .box {
+        border: 2px solid black;
+        background-color: white;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        margin: 20px auto;
-        max-width: 500px;
         text-align: center;
         font-size: 1.2rem;
       }
 
-      .card h2 {
-        margin-top: 0;
+      .mindEx {
+        grid-row: 1 / 3;
+      }
+
+      .healMeal {
+        grid-row: 1 / 2;
+      }
+
+      .inspQuo {
+        grid-row: 2 / 3;
       }
 
       .button-56 {
@@ -113,17 +135,19 @@
     <div id="loader">
       <img src="./run.webp" alt="Loading..." />
     </div>
-    <div id="mindEx" class="card" style="display: none">
-      <h2>Mindful Exercise</h2>
-      <p></p>
-    </div>
-    <div id="healMeal" class="card" style="display: none">
-      <h2>Healthy Meal Idea</h2>
-      <p></p>
-    </div>
-    <div id="inspQuo" class="card" style="display: none">
-      <h2>Inspirational Quote</h2>
-      <p></p>
+    <div class="grid-container">
+      <div id="mindEx" class="box mindEx" style="display: none">
+        <h2>Mindful Exercise</h2>
+        <p></p>
+      </div>
+      <div id="healMeal" class="box healMeal" style="display: none">
+        <h2>Healthy Meal Idea</h2>
+        <p></p>
+      </div>
+      <div id="inspQuo" class="box inspQuo" style="display: none">
+        <h2>Inspirational Quote</h2>
+        <p></p>
+      </div>
     </div>
   </body>
 </html>

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var loader = document.getElementById("loader");
   var mainTitle = document.getElementById("mainTitle");
   var introText = document.getElementById("introText");
-  var cards = document.querySelectorAll(".card");
+  var cards = document.querySelectorAll(".box");
 
   button.addEventListener("click", async function () {
     // Show the loader and hide the button, intro text, and cards
