@@ -2,12 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var button = document.getElementById('myButton');
   var loader = document.getElementById('loader');
   var mainTitle = document.getElementById('mainTitle');
+  var introText = document.getElementById('introText');
   var cards = document.querySelectorAll('.card');
 
   button.addEventListener('click', async function() {
-    // Show the loader and hide the button and cards
+    // Show the loader and hide the button, intro text, and cards
     loader.style.display = 'block';
     button.style.display = 'none';
+    introText.style.display = 'none';
     cards.forEach(card => card.style.display = 'none');
 
     // Change the title text while loading
