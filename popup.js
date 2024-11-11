@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var loader = document.getElementById("loader");
   var mainTitle = document.getElementById("mainTitle");
   var introText = document.getElementById("introText");
-  var gridContainer = document.querySelector(".grid-container");
-  var cards = document.querySelectorAll(".box");
+  var cards = document.querySelectorAll(".card");
 
   button.addEventListener("click", async function () {
     // Show the loader and hide the button, intro text, and cards
@@ -57,13 +56,12 @@ there should be from 3 to 5 steps in array`);
         document.getElementById("inspQuo").querySelector("p").innerText =
           inspQuo;
 
-        // Show the cards and the grid container
+        // Show the cards
         cards.forEach((card) => {
           if (card.querySelector("p").innerText.trim() !== "") {
             card.style.display = "block";
           }
         });
-        gridContainer.style.display = "grid";
       } else {
         alert("AI model is not available.");
       }
