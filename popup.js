@@ -26,7 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('inspQuo').querySelector('p').innerText = inspQuo;
 
         // Show the cards
-        cards.forEach(card => card.style.display = 'block');
+        cards.forEach(card => {
+          if (card.querySelector('p').innerText.trim() !== '') {
+            card.style.display = 'block';
+          }
+        });
       } else {
         alert('AI model is not available.');
       }
