@@ -25,26 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Prompt the model and wait for the whole result to come back.
         const mindEx =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words
-            // with this result structure:
-
-// {
-//   "title": "string",
-//   "durationMinutes": "number",
-//   "steps": "string[]"
-// }
-  `);
+          await session.prompt(`give me a simple exercise to relax in less than 100 words`);
         const healMeal =
-          await session.prompt(`give me a meal receipt in less than 100 words
-            // with this result structure:
-
-// {
-//   "title": "string",
-//   "durationMinutes": "number",
-//   "whyThisMealIsGood": "string",
-//   "steps": "string[]"
-// }
-  `);
+          await session.prompt(`give me a meal receipt in less than 100 words`);
         const inspQuo = await session.prompt(
           "give me a new inspirational quote"
         );
