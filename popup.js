@@ -5,6 +5,48 @@ document.addEventListener("DOMContentLoaded", function () {
   var introText = document.getElementById("introText");
   var cards = document.querySelectorAll(".card");
 
+  function extractJSONFromResponse(response) {
+    // Remove markdown code block syntax and any surrounding whitespace
+    const jsonStart = response.indexOf('{');
+    const jsonEnd = response.lastIndexOf('}') + 1;
+    if (jsonStart === -1 || jsonEnd === -1) {
+      throw new Error('No valid JSON found in response');
+    }
+    return response.slice(jsonStart, jsonEnd);
+  }
+
+  function createExerciseCard(data) {
+    return `
+      <h2>${data.title}</h2>
+      <p class="duration">Duration: ${data.durationMinutes} minute${
+      data.durationMinutes !== "1" ? "s" : ""
+    }</p>
+      <ul>
+        ${data.steps.map((step) => `<li>${step}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  function createMealCard(data) {
+    return `
+      <h2>${data.title}</h2>
+      <p class="duration">Preparation time: ${data.durationMinutes} minute${
+      data.durationMinutes !== "1" ? "s" : ""
+    }</p>
+      <p><strong>Why it's good for you:</strong> ${
+        data.whyThisMealIsGood
+      }</p>
+      <strong>Steps:</strong>
+      <ul>
+        ${data.steps.map((step) => `<li>${step}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  function createQuoteCard(quote) {
+    return `<p class="quote-text">"${quote}"</p>`;
+  }
+
   button.addEventListener("click", async function () {
     // Show the loader and hide the button, intro text, and cards
     loader.style.display = "block";
@@ -23,21 +65,39 @@ document.addEventListener("DOMContentLoaded", function () {
       if (available !== "no") {
         const session = await ai.languageModel.create();
 
-        // Prompt the model and wait for the whole result to come back.
-        const mindEx =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words`);
-        const healMeal =
-          await session.prompt(`give me a meal recipe in less than 100 words`);
-        const inspQuo = await session.prompt(
-          "give me a new inspirational quote"
-        );
+     // Get and parse the exercise data
+     const mindExResponse = await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure:
+      {
+        "title": "string",
+        "durationMinutes": "number",
+        "steps": "string[]"
+      }`);
+      const mindExJson = extractJSONFromResponse(mindExResponse);
+      const mindExData = JSON.parse(mindExJson);
 
-        // Display the results in the divs
-        document.getElementById("mindEx").querySelector("p").innerText = mindEx;
-        document.getElementById("healMeal").querySelector("p").innerText =
-          healMeal;
-        document.getElementById("inspQuo").querySelector("p").innerText =
-          inspQuo;
+      // Get and parse the meal data
+      const healMealResponse = await session.prompt(`give me a meal receipt in less than 100 words with this result structure:
+      {
+        "title": "string",
+        "durationMinutes": "number",
+        "whyThisMealIsGood": "string",
+        "steps": "string[]"
+      }`);
+      const healMealJson = extractJSONFromResponse(healMealResponse);
+      const healMealData = JSON.parse(healMealJson);
+
+      // Get the inspirational quote
+      const inspQuo = await session.prompt(
+        "give me a new inspirational quote"
+      );
+
+       // Update the DOM with formatted content
+       document.getElementById("mindEx").innerHTML =
+       createExerciseCard(mindExData);
+     document.getElementById("healMeal").innerHTML =
+       createMealCard(healMealData);
+     document.getElementById("inspQuo").innerHTML =
+       createQuoteCard(inspQuo);
 
         // Show the cards
         cards.forEach((card) => {
