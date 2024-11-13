@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
             card.style.display = "block";
           }
         });
+        session.destroy();
+
       } else {
         alert("AI model is not available.");
       }
