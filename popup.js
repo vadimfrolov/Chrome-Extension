@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function createExerciseCard(data) {
     return `
             <h2>${data.title}</h2>
-            <p class="duration">Duration: ${
+            <p class="duration">Duration ⏱️: ${
               data.durationMinutes
             } minute${data.durationMinutes !== "1" ? "s" : ""}</p>
             <ul>
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function createMealCard(data) {
     return `
             <h2>${data.title}</h2>
-            <p class="duration">Preparation time: ${
+            <p class="duration">Preparation time ⏲️: ${
               data.durationMinutes
             } minute${data.durationMinutes !== "1" ? "s" : ""}</p>
             <p><strong>Why it's good for you:</strong> ${
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Get and parse the exercise data
         const mindExResponse =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure:
+          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure as json:
               {
                 "title": "string",
                 "durationMinutes": "number",
@@ -76,13 +76,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Get and parse the meal data
         const healMealResponse =
-          await session.prompt(`give me a meal receipt in less than 100 words with this result structure:
+          await session.prompt(`give me a meal receipt in less than 100 words with this result structure as json:
               {
                 "title": "string",
                 "durationMinutes": "number",
                 "whyThisMealIsGood": "string",
                 "steps": "string[]"
-              }`);
+              } with 3-5 steps`);
         const healMealJson = extractJSONFromResponse(healMealResponse);
         const healMealData = JSON.parse(healMealJson);
 
@@ -103,13 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
           card.style.display = "block";
         });
       } else {
-        alert("AI model is not available.");
+        throw new Error("AI model is not available.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(
-        "An error occurred while fetching data. Please check the console for details."
-      );
+      mainTitle.innerText = "An error occurred. Please try again later.";
+      introText.style.display = "block";
+      introText.innerText =
+        "We're sorry, but we couldn't fetch the data at this time.";
     } finally {
       // Hide the loader and title
       loader.style.display = "none";
