@@ -45,12 +45,23 @@ document.addEventListener("DOMContentLoaded", function () {
           "give me a new inspirational quote"
         );
 
+        // Parse the JSON responses
+        const mindExData = JSON.parse(mindEx);
+        const healMealData = JSON.parse(healMeal);
+
         // Display the results in the divs
-        document.getElementById("mindEx").querySelector("p").innerText = mindEx;
-        document.getElementById("healMeal").querySelector("p").innerText =
-          healMeal;
-        document.getElementById("inspQuo").querySelector("p").innerText =
-          inspQuo;
+        document.getElementById("mindExTitle").innerText = mindExData.title;
+        document.getElementById("mindExDuration").innerText = `Duration: ${mindExData.durationMinutes} minutes`;
+        const mindExStepsList = document.getElementById("mindExSteps");
+        mindExStepsList.innerHTML = ""; // Clear any existing content
+        mindExData.steps.forEach((step) => {
+          const li = document.createElement("li");
+          li.innerText = step;
+          mindExStepsList.appendChild(li);
+        });
+
+        document.getElementById("healMeal").querySelector("p").innerText = healMeal;
+        document.getElementById("inspQuo").querySelector("p").innerText = inspQuo;
 
         // Show the cards
         cards.forEach((card) => {
