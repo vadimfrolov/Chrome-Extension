@@ -61,11 +61,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const { available } = await ai.languageModel.capabilities();
 
       if (available !== "no") {
-        const session = await ai.languageModel.create();
+        const session = await ai.languageModel.create(
+           {systemPrompt: "Please provide the following data in English with JSON format"}
+        );
 
         // Get and parse the exercise data
         const mindExResponse =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure as json:
+          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result data as JSON format:
               {
                 "title": "string",
                 "durationMinutes": "number",
@@ -76,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Get and parse the meal data
         const healMealResponse =
-          await session.prompt(`give me a meal receipt in less than 100 words with this result structure as json:
+          await session.prompt(`give me a meal receipt in less than 100 words with this result data as JSON format:
               {
                 "title": "string",
                 "durationMinutes": "number",
@@ -98,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
           createMealCard(healMealData);
         document.getElementById("inspQuo").innerHTML = createQuoteCard(inspQuo);
 
+        console.log(mindExResponse, healMealResponse, inspQuo)
         // Show all cards
         cards.forEach((card) => {
           card.style.display = "block";
