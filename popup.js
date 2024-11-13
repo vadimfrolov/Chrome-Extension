@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mindEx =
           await session.prompt(`give me a simple exercise to relax in less than 100 words`);
         const healMeal =
-          await session.prompt(`give me a meal receipt in less than 100 words`);
+          await session.prompt(`give me a meal recipe in less than 100 words`);
         const inspQuo = await session.prompt(
           "give me a new inspirational quote"
         );
