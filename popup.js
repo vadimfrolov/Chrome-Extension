@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Prompt the model and wait for the whole result to come back.
         const mindEx =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure as json:
+          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure as object only:
 
 {
   "title": "string",
