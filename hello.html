@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>Daily Mindful Tips</title>
-    <script src="popup.js"></script>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -18,9 +17,8 @@
       }
 
       #loader {
-        display: none; /* Hidden by default */
+        display: none;
         margin: 0px auto;
-
       }
 
       .animationDog {
@@ -34,13 +32,30 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
         margin: 20px;
-        /* max-width: 500px; */
-        text-align: center;
-        font-size: 1.2rem;
+        text-align: left;
+        font-size: 1.1rem;
       }
 
       .card h2 {
         margin-top: 0;
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      .card .duration {
+        color: #7f8c8d;
+        font-style: italic;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .card ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .card li {
+        margin-bottom: 8px;
       }
 
       .button-56 {
@@ -97,23 +112,37 @@
         outline: 0;
       }
 
-      @media (min-width: 768px) {
-        .button-56 {
-          padding: 0 40px;
-        }
-      }
-
       #introText {
         text-align: center;
         font-size: 16px;
       }
+
       .generalContainer {
         display: flex;
+        gap: 20px;
       }
 
-      .mealAndQuoute {
+      .mealAndQuote {
         display: flex;
         flex-direction: column;
+        flex: 1;
+      }
+
+      #mindEx {
+        flex: 1;
+      }
+
+      .quote-text {
+        font-style: italic;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #2c3e50;
+      }
+
+      @media (min-width: 768px) {
+        .button-56 {
+          padding: 0 40px;
+        }
       }
     </style>
   </head>
@@ -128,17 +157,132 @@
       <img class="animationDog" src="./run.webp" alt="Loading..." />
     </div>
     <div class="generalContainer">
-      <div id="mindEx" class="card" style="display: none">
-        <p></p>
-      </div>
-      <div class="mealAndQuoute">
-        <div id="inspQuo" class="card" style="display: none">
-          <p></p>
-        </div>
-        <div id="healMeal" class="card" style="display: none">
-          <p></p>
-        </div>
+      <div id="mindEx" class="card" style="display: none"></div>
+      <div class="mealAndQuote">
+        <div id="inspQuo" class="card" style="display: none"></div>
+        <div id="healMeal" class="card" style="display: none"></div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const button = document.getElementById("myButton");
+        const loader = document.getElementById("loader");
+        const mainTitle = document.getElementById("mainTitle");
+        const introText = document.getElementById("introText");
+        const cards = document.querySelectorAll(".card");
+
+        function extractJSONFromResponse(response) {
+          // Remove markdown code block syntax and any surrounding whitespace
+          const jsonStart = response.indexOf('{');
+          const jsonEnd = response.lastIndexOf('}') + 1;
+          if (jsonStart === -1 || jsonEnd === -1) {
+            throw new Error('No valid JSON found in response');
+          }
+          return response.slice(jsonStart, jsonEnd);
+        }
+
+        function createExerciseCard(data) {
+          return `
+            <h2>${data.title}</h2>
+            <p class="duration">Duration: ${data.durationMinutes} minute${
+            data.durationMinutes !== "1" ? "s" : ""
+          }</p>
+            <ul>
+              ${data.steps.map((step) => `<li>${step}</li>`).join("")}
+            </ul>
+          `;
+        }
+
+        function createMealCard(data) {
+          return `
+            <h2>${data.title}</h2>
+            <p class="duration">Preparation time: ${data.durationMinutes} minute${
+            data.durationMinutes !== "1" ? "s" : ""
+          }</p>
+            <p><strong>Why it's good for you:</strong> ${
+              data.whyThisMealIsGood
+            }</p>
+            <strong>Steps:</strong>
+            <ul>
+              ${data.steps.map((step) => `<li>${step}</li>`).join("")}
+            </ul>
+          `;
+        }
+
+        function createQuoteCard(quote) {
+          return `<p class="quote-text">"${quote}"</p>`;
+        }
+
+        button.addEventListener("click", async function () {
+          // Show the loader and hide other elements
+          loader.style.display = "block";
+          button.style.display = "none";
+          introText.style.display = "none";
+          cards.forEach((card) => (card.style.display = "none"));
+
+          mainTitle.innerText =
+            "Our best employee is already looking for information";
+
+          try {
+            const { available } = await ai.languageModel.capabilities();
+
+            if (available !== "no") {
+              const session = await ai.languageModel.create();
+
+              // Get and parse the exercise data
+              const mindExResponse = await session.prompt(`give me a simple exercise to relax in less than 100 words with this result structure:
+              {
+                "title": "string",
+                "durationMinutes": "number",
+                "steps": "string[]"
+              }`);
+              const mindExJson = extractJSONFromResponse(mindExResponse);
+              const mindExData = JSON.parse(mindExJson);
+
+              // Get and parse the meal data
+              const healMealResponse = await session.prompt(`give me a meal receipt in less than 100 words with this result structure:
+              {
+                "title": "string",
+                "durationMinutes": "number",
+                "whyThisMealIsGood": "string",
+                "steps": "string[]"
+              }`);
+              const healMealJson = extractJSONFromResponse(healMealResponse);
+              const healMealData = JSON.parse(healMealJson);
+
+              // Get the inspirational quote
+              const inspQuo = await session.prompt(
+                "give me a new inspirational quote"
+              );
+
+              // Update the DOM with formatted content
+              document.getElementById("mindEx").innerHTML =
+                createExerciseCard(mindExData);
+              document.getElementById("healMeal").innerHTML =
+                createMealCard(healMealData);
+              document.getElementById("inspQuo").innerHTML =
+                createQuoteCard(inspQuo);
+
+              // Show all cards
+              cards.forEach((card) => {
+                card.style.display = "block";
+              });
+            } else {
+              alert("AI model is not available.");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert(
+              "An error occurred while fetching data. Please check the console for details."
+            );
+          } finally {
+            // Hide the loader and title
+            loader.style.display = "none";
+            mainTitle.style.display = "none";
+          }
+        });
+      });
+    </script>
   </body>
 </html>
