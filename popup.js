@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function createQuoteCard(quote) {
-    return `<p class="quote-text">"${quote}"</p>`;
+    return `<p class="quote-text">${quote}</p>`;
   }
 
   button.addEventListener("click", async function () {
