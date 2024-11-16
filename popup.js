@@ -93,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
           "give me a new inspirational quote"
         );
 
+        session.destroy();
+
         // Update the DOM with formatted content
         document.getElementById("mindEx").innerHTML =
           createExerciseCard(mindExData);
