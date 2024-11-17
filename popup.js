@@ -4,54 +4,63 @@ document.addEventListener("DOMContentLoaded", function () {
   const mainTitle = document.getElementById("mainTitle");
   const introText = document.getElementById("introText");
   const cards = document.querySelectorAll(".card");
+  const firstPage = document.querySelector(".firstPage");
+  const featurList = document.getElementById("features");
 
-  function extractJSONFromResponse(response) {
-    // Remove markdown code block syntax and any surrounding whitespace
-    const jsonStart = response.indexOf("{");
-    const jsonEnd = response.lastIndexOf("}") + 1;
-    if (jsonStart === -1 || jsonEnd === -1) {
-      throw new Error("No valid JSON found in response");
-    }
-    return response.slice(jsonStart, jsonEnd);
-  }
+  const now = new Date();
 
-  function createExerciseCard(data) {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const day = now.getDate();
+  const month = months[now.getMonth()];
+
+  const formattedDate = `${day} ${month}`;
+
+  function createExerciseCard(text) {
     return `
-            <h2>${data.title}</h2>
-            <p class="duration">Duration ⏱️: ${
-              data.durationMinutes
-            } minute${data.durationMinutes !== "1" ? "s" : ""}</p>
-            <ul>
-              ${data.steps.map((step) => `<li>${step}</li>`).join("")}
-            </ul>
-          `;
+      <h2>Relaxation Exercise</h2>
+      <p>${text}</p>
+    `;
   }
 
-  function createMealCard(data) {
+  function createMealCard(text) {
     return `
-            <h2>${data.title}</h2>
-            <p class="duration">Preparation time ⏲️: ${
-              data.durationMinutes
-            } minute${data.durationMinutes !== "1" ? "s" : ""}</p>
-            <p><strong>Why it's good for you:</strong> ${
-              data.whyThisMealIsGood
-            }</p>
-            <strong>Steps:</strong>
-            <ul>
-              ${data.steps.map((step) => `<li>${step}</li>`).join("")}
-            </ul>
-          `;
+      <h2>Fun fact for ${formattedDate}</h2>
+      <p>${text}</p>
+    `;
   }
 
-  function createQuoteCard(quote) {
-    return `<p class="quote-text">${quote}</p>`;
+  function createEnergyHabitCard(text) {
+    return `
+      <h2>Productivity tip</h2>
+      <p>${text}</p>
+    `;
+  }
+
+  function createQuoteCard(text) {
+    return `
+      <p class="quote-text">${text}</p>
+    `;
   }
 
   button.addEventListener("click", async function () {
-    // Show the loader and hide other elements
     loader.style.display = "block";
     button.style.display = "none";
     introText.style.display = "none";
+    featurList.style.display = "none";
     cards.forEach((card) => (card.style.display = "none"));
 
     mainTitle.innerText =
@@ -61,32 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
       const { available } = await ai.languageModel.capabilities();
 
       if (available !== "no") {
-        const session = await ai.languageModel.create(
-           {systemPrompt: "Please provide the following data in English with JSON format"}
+        const session = await ai.languageModel.create({
+          systemPrompt:
+            "Please provide responses in English wihout any formatting",
+        });
+
+        // Get the exercise data
+        const mindExResponse = await session.prompt(
+          "give me a simple exercise to relax in less than 100 words"
         );
 
-        // Get and parse the exercise data
-        const mindExResponse =
-          await session.prompt(`give me a simple exercise to relax in less than 100 words with this result data as JSON format:
-              {
-                "title": "string",
-                "durationMinutes": "number",
-                "steps": "string[]"
-              }`);
-        const mindExJson = extractJSONFromResponse(mindExResponse);
-        const mindExData = JSON.parse(mindExJson);
+        // Get the meal data
+        const healMealResponse = await session.prompt(
+          `give me a fun fact for ${formattedDate}`
+        );
 
-        // Get and parse the meal data
-        const healMealResponse =
-          await session.prompt(`give me a meal receipt in less than 100 words with this result data as JSON format:
-              {
-                "title": "string",
-                "durationMinutes": "number",
-                "whyThisMealIsGood": "string",
-                "steps": "string[]"
-              } with 3-5 steps`);
-        const healMealJson = extractJSONFromResponse(healMealResponse);
-        const healMealData = JSON.parse(healMealJson);
+        const EnergyHabitResponse = await session.prompt(
+          "give me a new daily productivity tip"
+        );
 
         // Get the inspirational quote
         const inspQuo = await session.prompt(
@@ -97,12 +98,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Update the DOM with formatted content
         document.getElementById("mindEx").innerHTML =
-          createExerciseCard(mindExData);
+          createExerciseCard(mindExResponse);
         document.getElementById("healMeal").innerHTML =
-          createMealCard(healMealData);
+          createMealCard(healMealResponse);
         document.getElementById("inspQuo").innerHTML = createQuoteCard(inspQuo);
+        document.getElementById("energyHabit").innerHTML =
+          createEnergyHabitCard(EnergyHabitResponse);
 
-        console.log(mindExResponse, healMealResponse, inspQuo)
+        firstPage.style.display = "none";
+
+        console.log(mindExResponse, healMealResponse, inspQuo);
+
         // Show all cards
         cards.forEach((card) => {
           card.style.display = "block";

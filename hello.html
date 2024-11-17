@@ -31,13 +31,17 @@
       .card {
         background-color: #fff;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         padding: 15px;
         margin: 5px;
         text-align: left;
-        font-size: 1rem;
+        font-size: 1.1rem;
         max-width: 360px;
         height: fit-content;
+      }
+
+      .card:hover {
+        background-color: #f7f7f7;
       }
 
       .card h2 {
@@ -47,7 +51,7 @@
       .button-56 {
         margin: 0 auto;
         align-items: center;
-        background-color: #a1e1eb;
+        background-color: #e1eba1;
         border: 2px solid #111;
         border-radius: 8px;
         box-sizing: border-box;
@@ -61,7 +65,7 @@
         line-height: 24px;
         max-width: 100%;
         padding: 0 25px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         position: relative;
         text-align: center;
         text-decoration: none;
@@ -97,6 +101,7 @@
 
       .button-56:hover {
         outline: 0;
+        background-color: #c5d45e;
       }
 
       @media (min-width: 768px) {
@@ -107,8 +112,10 @@
 
       #introText {
         text-align: center;
-        font-size: 16px;
+        font-size: 1.5rem;
+        padding: 20px;
       }
+
       .generalContainer {
         display: flex;
       }
@@ -118,8 +125,59 @@
         flex-direction: column;
       }
 
+      .quote-text {
+        font-style: italic;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .quote-author {
+        text-align: right;
+        color: #7f8c8d;
+        font-size: 1rem;
+        margin-top: 0;
+      }
+
       #mindEx {
         flex: 1;
+      }
+
+      #features {
+        list-style: none;
+        padding: 0;
+        margin: 25px auto;
+        max-width: 320px;
+        text-align: left;
+      }
+
+      #features li {
+        margin: 12px 0;
+        padding: 10px 15px 10px 35px;
+        background-color: #a1e1eb;
+        border-radius: 0 6px 6px 0;
+        color: #2c3e50;
+        font-size: 1.2rem;
+        position: relative;
+        box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+      }
+
+      #features li::before {
+        content: "•";
+        position: absolute;
+        left: 15px;
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .firstPage {
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
       }
 
       .quote-text {
@@ -131,18 +189,32 @@
     </style>
   </head>
   <body>
-    <h1 id="mainTitle">Daily Mindful Tips</h1>
-    <p id="introText">
-      Sometimes it's hard to find comfort in day-to-day life, and we need some
-      inspiration
-    </p>
-    <button id="myButton" class="button-56" role="button">Get Tips</button>
+    <div class="firstPage">
+      <h1 id="mainTitle">Daily Mindful Tips</h1>
+      <p id="introText">
+        Check out our AI-picked selection of mood-boosting content to keep you
+        motivated and balanced
+      </p>
+      <ul id="features">
+        <li>Fun fact of the day</li>
+        <li>Simple exercise to relax</li>
+        <li>Inspirational quote</li>
+        <li>Productivity tip</li>
+      </ul>
+      <button id="myButton" class="button-56" role="button">Get Tips ☺️</button>
+    </div>
+
     <div id="loader">
       <img class="animationDog" src="./run.webp" alt="Loading..." />
     </div>
     <div class="generalContainer">
-      <div id="healMeal" class="card" style="display: none">
-        <p></p>
+      <div class="mealAndQuoute">
+        <div id="healMeal" class="card" style="display: none">
+          <p></p>
+        </div>
+        <div id="energyHabit" class="card" style="display: none">
+          <p></p>
+        </div>
       </div>
       <div class="mealAndQuoute">
         <div id="inspQuo" class="card" style="display: none">
