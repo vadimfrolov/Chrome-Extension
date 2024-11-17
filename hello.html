@@ -50,70 +50,52 @@
 
       .button-56 {
         margin: 0 auto;
+        display: inline-flex;
         align-items: center;
-        background-color: #e1eba1;
-        border: 2px solid #111;
-        border-radius: 8px;
-        box-sizing: border-box;
-        color: #111;
-        cursor: pointer;
-        display: flex;
-        font-family: Inter, sans-serif;
-        font-size: 16px;
-        height: 48px;
         justify-content: center;
-        line-height: 24px;
-        max-width: 100%;
-        padding: 0 25px;
-        margin-bottom: 20px;
-        position: relative;
-        text-align: center;
+        padding: 22px 120px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #ffffff;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         text-decoration: none;
         user-select: none;
-        font-weight: 600;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-      }
-
-      .button-56:after {
-        background-color: #111;
-        border-radius: 8px;
-        content: "";
-        display: block;
-        height: 48px;
-        left: 0;
-        width: 100%;
-        position: absolute;
-        top: -2px;
-        transform: translate(8px, 8px);
-        transition: transform 0.2s ease-out;
-        z-index: -1;
-      }
-
-      .button-56:hover:after {
-        transform: translate(0, 0);
-      }
-
-      .button-56:active {
-        background-color: #a1e1eb;
-        outline: 0;
+        position: relative;
       }
 
       .button-56:hover {
-        outline: 0;
-        background-color: #c5d45e;
+        background: linear-gradient(135deg, #2575fc, #6a11cb);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
       }
 
-      @media (min-width: 768px) {
-        .button-56 {
-          padding: 0 40px;
-        }
+      .button-56:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .button-56::before {
+        content: "💡";
+        margin-right: 8px;
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .button-56:hover::before {
+        transform: rotate(360deg);
       }
 
       #introText {
         text-align: center;
         font-size: 1.5rem;
-        padding: 20px;
+        padding: 0px 20px;
+        margin: 0px;
       }
 
       .generalContainer {
@@ -148,28 +130,34 @@
         list-style: none;
         padding: 0;
         margin: 25px auto;
-        max-width: 320px;
+        max-width: 360px;
         text-align: left;
       }
 
       #features li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         margin: 12px 0;
-        padding: 10px 15px 10px 35px;
-        background-color: #a1e1eb;
-        border-radius: 0 6px 6px 0;
-        color: #2c3e50;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #a1e1eb, #f3f4f6);
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
         font-size: 1.2rem;
+        color: #2c3e50;
         position: relative;
-        box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+        transition: transform 0.2s, box-shadow 0.2s;
       }
 
-      #features li::before {
-        content: "•";
-        position: absolute;
-        left: 15px;
-        color: #ffffff;
-        font-size: 20px;
-        font-weight: bold;
+      .feature-icon {
+        font-size: 1.5rem;
+        background-color: #ffffff;
+        border-radius: 50%;
+        padding: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px;
       }
 
       .firstPage {
@@ -178,6 +166,8 @@
         padding: 10px;
         margin: 10px;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        display: flex;
+        flex-direction: column;
       }
 
       .quote-text {
@@ -190,17 +180,18 @@
   </head>
   <body>
     <div class="firstPage">
-      <h1 id="mainTitle">Daily Mindful Tips</h1>
+      <h1 id="mainTitle"></h1>
       <p id="introText">
-        Check out our AI-picked selection of mood-boosting content to keep you
+        Check out our <strong>AI-picked</strong> selection of mood-boosting content to keep you
         motivated and balanced
       </p>
       <ul id="features">
-        <li>Fun fact of the day</li>
-        <li>Simple exercise to relax</li>
-        <li>Inspirational quote</li>
-        <li>Productivity tip</li>
+        <li><span class="feature-icon">🌟</span> Fun fact of the day</li>
+        <li><span class="feature-icon">🧘</span> Simple exercise to relax</li>
+        <li><span class="feature-icon">💬</span> Inspirational quote</li>
+        <li><span class="feature-icon">📈</span> Productivity tip</li>
       </ul>
+
       <button id="myButton" class="button-56" role="button">Get Tips ☺️</button>
     </div>
 
