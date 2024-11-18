@@ -120,8 +120,18 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error:", error);
       mainTitle.innerText = "An error occurred. Please try again later.";
       introText.style.display = "block";
-      introText.innerText =
-        "We're sorry, but we couldn't fetch the data at this time.";
+
+      // Check if the error is "ai is not defined"
+      if (
+        error.name === "ReferenceError" &&
+        error.message.includes("ai is not defined")
+      ) {
+        introText.innerText =
+          "Sorry, but looks like your browser is not supporting Chrome Built-in AI features 🥲";
+      } else {
+        introText.innerText =
+          "We're sorry, but we couldn't fetch the data at this time.";
+      }
     } finally {
       // Hide the loader and title
       loader.style.display = "none";
