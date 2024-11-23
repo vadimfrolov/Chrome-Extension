@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
           `);
 
         const EnergyHabitResponse = await session.prompt(
-          "Generate a unique daily productivity or focus or time management tip to help individuals maximize their efficiency"
+          "Generate a unique daily mindful or productivity or focus or time management tip to help individuals maximize their efficiency"
         );
 
         const inspQuo = await session.prompt(`
@@ -110,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         session.destroy();
 
-        // Update the DOM with formatted content
         document.getElementById("mindEx").innerHTML =
           createExerciseCard(mindExResponse);
         document.getElementById("healMeal").innerHTML =
@@ -121,12 +120,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         firstPage.style.display = "none";
 
-        // Show all cards
         cards.forEach((card) => {
           card.style.display = "block";
         });
 
-        // Add click handlers to cards after they're populated
         addCardClickHandlers();
       } else {
         throw new Error("AI model is not available.");
