@@ -12,7 +12,7 @@ A Chrome extension that provides AI-curated mood-boosting content to keep you mo
 ## Installation 🚀
 
 ### Step 1: Enable Chrome AI Features
-1. Open a new tab in Chrome and navigate to `chrome://flags/#optimization-guide-on-device-model`
+1. Open a new tab in **Chrome Canary** and navigate to `chrome://flags/#optimization-guide-on-device-model`
 2. Find and select "Enabled BypassPerfRequirement"
    * This bypasses performance checks that might prevent Gemini Nano from downloading on your device
 3. Navigate to `chrome://flags/#prompt-api-for-gemini-nano`
@@ -25,7 +25,7 @@ A Chrome extension that provides AI-curated mood-boosting content to keep you mo
 ```bash
 git clone https://github.com/yourusername/mindful-corgi-companion.git
 ```
-8. Open Chrome and navigate to `chrome://extensions/`
+8. Open **Chrome Canary** and navigate to `chrome://extensions/`
 9. Enable "Developer mode" using the toggle switch in the top right corner
 10. Click "Load unpacked" and select the cloned repository folder
 
