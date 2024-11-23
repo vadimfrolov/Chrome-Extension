@@ -21,10 +21,15 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
+  function formatTip(text) {
+    return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  }
+
   function createEnergyHabitCard(text) {
+    const formattedText = formatTip(text);
     return `
       <h2>Productivity tip</h2>
-      <p>${text}</p>
+      <p>${formattedText}</p>
     `;
   }
 
@@ -87,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
           - Must be 2-3 sentences maximum
           `);
 
-          const EnergyHabitResponse = await session.prompt(
-            "give me a new daily productivity tip"
-          );
+        const EnergyHabitResponse = await session.prompt(
+          "Generate a unique daily productivity or focus or time management tip to help individuals maximize their efficiency"
+        );
 
         const inspQuo = await session.prompt(`
           Generate a meaningful and impactful inspirational quote that should be:
