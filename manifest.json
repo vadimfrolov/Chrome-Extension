@@ -1,10 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "Mindful tips",
-  "description": "Base Level Extension",
+  "name": "Mindful Corgi Companion",
+  "description": "Mindful Corgi Companion is a Chrome extension that uses built-in AI to enhance your productivity and well-being.",
   "version": "1.0",
+  "icons": {
+    "16": "images/corgi-16.png",
+    "32": "images/corgi-32.png",
+    "48": "images/corgi-48.png",
+    "128": "images/corgi.png"
+  },
   "action": {
     "default_popup": "hello.html",
-    "default_icon": "corgi2.png"
+    "default_icon": "images/corgi.png"
   }
 }
