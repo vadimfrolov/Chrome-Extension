@@ -1,0 +1,263 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 5px;
+  width: 770px;
+  margin: 0 auto;
+  background: linear-gradient(
+    270deg,
+    #e0e7e9,
+    #b8d8d8,
+    #7eb9c1,
+    #b8d8d8,
+    #e0e7e9
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2b3a42;
+}
+
+#loader {
+  display: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.animationDog {
+  margin: auto;
+  display: block;
+}
+
+.card {
+  background-color: #fafcff;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+  padding: 15px;
+  margin: 10px;
+  text-align: left;
+  font-size: 1.1rem;
+  max-width: 360px;
+  height: fit-content;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+  cursor: pointer;
+}
+
+.card::after {
+  content: "⧉";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  color: #3a4a58;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.card.copied::after {
+  content: "✓copied";
+  color: #28a745;
+}
+
+.card:hover {
+  background-color: #e7ecef;
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #3a4a58;
+}
+
+.button-56 {
+  margin: 0px auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 56px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #5f7a8a, #4b6675);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  user-select: none;
+}
+
+.button-56:hover {
+  background: linear-gradient(135deg, #4b6675, #5f7a8a);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.button-56:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#introText {
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 0px 70px;
+  margin: 0px;
+  color: #3a4a58;
+}
+
+.generalContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.mealAndQuoute {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-text {
+  font-style: italic;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #465a6b;
+  margin-bottom: 10px;
+}
+
+.quote-author {
+  text-align: right;
+  color: #6d7b89;
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+#features {
+  list-style: none;
+  padding: 0;
+  margin: 15px auto;
+  max-width: 360px;
+  text-align: left;
+}
+
+#features li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 12px 0;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #b0c3d1, #d1dde3);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 6px;
+  font-size: 1.2rem;
+  color: #2b3a42;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px;
+}
+
+.firstPage {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.listIcon {
+  width: 30px;
+}
+
+.sleep-animation {
+  position: relative;
+  left: 45%;
+  font-size: 3em;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.z {
+  position: absolute;
+  opacity: 0;
+  animation: float 3s infinite;
+}
+
+.z:nth-child(1) {
+  animation-delay: 0s;
+  top: 0;
+  left: 0;
+}
+
+.z:nth-child(2) {
+  animation-delay: 1s;
+  top: -20px;
+  left: 10px;
+}
+
+.z:nth-child(3) {
+  animation-delay: 2s;
+  top: -40px;
+  left: 20px;
+}
+
+@keyframes float {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
