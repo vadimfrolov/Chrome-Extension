@@ -2,6 +2,11 @@
 
 A Chrome extension that provides AI-curated mood-boosting content to keep you motivated and balanced throughout your day. Get instant access to relaxation exercises, fun facts, productivity tips, and inspirational quotes - all with a charming corgi theme!
 
+## License
+
+This project is licensed under the [MIT License](./LICENSE).  
+You are free to use, modify, and distribute this software in accordance with the terms of the license.
+
 ## Features ✨
 
 - **Fun Facts**: Discover fascinating, scientifically accurate tidbits about science, nature, history, and human achievement
